@@ -4,7 +4,7 @@
 <h2>Home</h2>
 <hr />
 
-<h3>현재 사용자</h3>
+<h3>현재 사용</h3>
 
 <sec:authorize access="authenticated">
     <table class="table table-bordered" style="width:500px;">
