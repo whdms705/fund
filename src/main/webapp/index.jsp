@@ -6,8 +6,12 @@
 <body>
 
 <h1>Hello World!</h1>
+<<<<<<< HEAD
+=======
+
+>>>>>>> f4646d22737445767019bade261a8347fbfa826f
 <a href="user/list.do">list.do</a>
-<h5> branch test</h5>
+
 
 </body>
 </html>
