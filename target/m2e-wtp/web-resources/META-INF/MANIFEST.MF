@@ -1,5 +1,10 @@
 Manifest-Version: 1.0
+<<<<<<< HEAD
 Built-By: parkeunsun
 Build-Jdk: 1.8.0_73
+=======
+Built-By: JS
+Build-Jdk: 1.8.0_101
+>>>>>>> 4698d6c6647e04f55072fb7fbcd335e233c1afd4
 Created-By: Maven Integration for Eclipse
 
