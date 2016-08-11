@@ -17,5 +17,46 @@ public class HomeController {
     public String login(Model model) {
         return "home/login";
     }
+    
+    @RequestMapping(value="/code/code.do", method=RequestMethod.GET)
+    public String code(Model model) {
+        return "code/code";
+    }
+    
+    @RequestMapping(value="/agreement/agreement.do", method=RequestMethod.GET)
+    public String agreement(Model model) {
+        return "agreement/agreement";
+    }
+    
+    @RequestMapping(value="/certificate/donation_cer.do", method=RequestMethod.GET)
+    public String donation_cer(Model model) {
+        return "certificate/donation_cer";
+    }
+    
+    @RequestMapping(value="/certificate/scholarship_cer.do", method=RequestMethod.GET)
+    public String scholarship_cer(Model model) {
+        return "certificate/scholarship_cer";
+    }
+    
+    @RequestMapping(value="/certificate/donation_cer_list.do", method=RequestMethod.GET)
+    public String donation_cer_list(Model model) {
+        return "certificate/donation_cer_list";
+    }
+    
+    @RequestMapping(value="/certificate/scholarship_cer_list.do", method=RequestMethod.GET)
+    public String scholarship_cer_list(Model model) {
+        return "certificate/scholarship_cer_list";
+    }
+    
+    @RequestMapping(value="/agreement/stats.do", method=RequestMethod.GET)
+    public String stats(Model model) {
+        return "agreement/stats";
+    }
+    
+    @RequestMapping(value="/agreement/cmscheck.do", method=RequestMethod.GET)
+    public String cmscheck(Model model) {
+        return "agreement/cmscheck";
+    }
+   
 }
 
