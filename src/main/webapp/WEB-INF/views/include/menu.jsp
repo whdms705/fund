@@ -15,7 +15,7 @@
 		<span class="icon-bar"></span>
 		<span class="icon-bar"></span>
 	      </button>
-	      <a class="navbar-brand" href="#">후원회</a>
+	      <a class="navbar-brand" href="/fund">후원회</a>
 	    </div>
 
 	    <!-- Collect the nav links, forms, and other content for toggling -->
@@ -57,9 +57,9 @@
 		  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">금융연동<span class="caret"></span></a>
 		  <ul class="dropdown-menu" role="menu">
 		    
-		    <li><a href="#">CMS</a></li>
-		    <li class="divider"></li>
-		    <li><a href="#">Excel</a></li>
+		    <li><a href="${R}finance/cms/cms.do">CMS</a></li>
+		    <li><a href="#">자동이체</a></li>
+		    <li><a href="#">급여공제</a></li>
 		  </ul>
 		</li>
 		<li class="dropdown">
