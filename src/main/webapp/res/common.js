@@ -28,7 +28,8 @@ $(function() {
 
      $.ajax({
      	type : "GET",
-     	url : "http://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+lon+"&language=ko",
+     	url : "",
+     	data :{"content":content},
      	error:function(request,status,error){
      		alert("통신실패")
 
