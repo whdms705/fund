@@ -2,24 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:url value="/" var="R" />
-<script>
-	$(document).ready(
-			function() {
-				var fileTarget = $('.filebox .upload-hidden');
 
-				fileTarget.on('change', function() { // 값이 변경되면
-					if (window.FileReader) { // modern browser
-						var filename = $(this)[0].files[0].name;
-					} else { // old IE
-						var filename = $(this).val().split('/').pop().split(
-								'\\').pop(); // 파일명만 추출
-					}
+<script src="${R}res/common.js" type="text/javascript"></script>
 
-					// 추출한 파일명 삽입
-					$(this).siblings('.upload-name').val(filename);
-				});
-			});
-</script>
+
+ 
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<h4>회원기본정보</h4>
@@ -59,8 +46,8 @@
 						<td id="table_b"><input type="text"
 							placeholder="-를 제외하고 입력해주세요."></td>
 						<td id="table_a" rowspan="2">자택주소</td>
-						<td id="table_b"><input type="text"><a type="button"
-							class="searcha" data-toggle="modal" data-target="#searchaddress">주소검색</a></td>
+						<td id="table_b"><input type="text"><button
+							class="searcha" onclick="sample4_execDaumPostcode()">주소검색</button></td>
 					</tr>
 					<tr>
 						<td id="table_a">후원인구분1</td>
@@ -96,8 +83,8 @@
 					</tr>
 					<tr>
 						<td id="table_a">소속교회</td>
-						<td id="table_b"><input type="text"><a type="button"
-							class="searcha" data-toggle="modal" data-target="#searchaddress">교회검색</a>
+						<td id="table_b"><input type="text" class="church"><a type="button"
+							class="searcha" data-toggle="modal" data-target="#exampleModal">교회검색</a>
 						</td>
 						<td id="table_a">핸드폰 번호</td>
 						<td id="table_b"><input type="tel"
@@ -137,6 +124,62 @@
 		<!-- /.table-responsive -->
 	</div>
 	<!-- /.panel-body -->
+	
+	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script>
+    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+    function sample4_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
+               alert(fullRoadAddr);
+                var extraRoadAddr = ''; // 도로명 조합형 주소 변수
+
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraRoadAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if(extraRoadAddr !== ''){
+                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                }
+                // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
+                if(fullRoadAddr !== ''){
+                    fullRoadAddr += extraRoadAddr;
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('sample4_postcode').value = data.zonecode; //5자리 새우편번호 사용
+                document.getElementById('sample4_roadAddress').value = fullRoadAddr;
+                document.getElementById('sample4_jibunAddress').value = data.jibunAddress;
+
+                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+                if(data.autoRoadAddress) {
+                    //예상되는 도로명 주소에 조합형 주소를 추가한다.
+                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                    document.getElementById('guide').innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+
+                } else if(data.autoJibunAddress) {
+                    var expJibunAddr = data.autoJibunAddress;
+                    document.getElementById('guide').innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+
+                } else {
+                    document.getElementById('guide').innerHTML = '';
+                }
+            }
+        }).open();
+    }
+</script>
+
 </div>
 <!-- /.panel -->
 
@@ -177,9 +220,8 @@
 
 							<tr>
 								<td id="table_a">직장주소</td>
-								<td id="table_b"><input type="text"> <a
-									type="button" class="searcha" data-toggle="modal"
-									data-target="#searchaddress">주소검색</a> <input type="text"
+								<td id="table_b"><input type="text"> <button class="searcha" data-toggle="modal"
+									data-target="#searchaddress" onclick="sample4_execDaumPostcode()">주소검색</button> <input type="text"
 									id="input_l">
 							</tr>
 
@@ -256,26 +298,37 @@
 
 </div>
 
-
-<!-- Modal -->
-<div id="searchaddress" class="modal fade" role="dialog">
-	<div class="modal-dialog">
-
-		<!-- Modal content-->
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h3 class="modal-title">주소검색</h3>
-			</div>
-			<div class="modal-body">
-				<div class="input-group">
-					<span class="modala">지번/도로 주소</span><input type="text" id="input_l"><a
-						type="button" class="btn">주소검색</a>
-
-				</div>
-				<div class="modalb"></div>
-			</div>
-		</div>
-
-	</div>
+<!--  modal  -->
+<div class="bd-example">
+ 
+ 
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="exampleModalLabel">New message</h4>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="recipient-name" class="form-control-label">Recipient:</label>
+              <input type="text" class="form-control" id="recipient-name">
+            </div>
+            <div class="form-group">
+            
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          
+          <button type="button" class="btn btn-primary">확인</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+

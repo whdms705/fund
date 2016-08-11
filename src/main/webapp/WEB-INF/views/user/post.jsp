@@ -20,7 +20,7 @@
 			<!-- /.row -->
 
 			<div>
-				<label> 신청기간 </label> <input type="date"> ~ <input type="date">
+				<label> 납입기간 </label> <input type="date"> ~ <input type="date">
 				 <button  class="btn btn-primary">검색</button>
 			</div>
 

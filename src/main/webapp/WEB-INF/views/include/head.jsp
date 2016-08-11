@@ -12,7 +12,9 @@
 <link rel="stylesheet"  href="${R}res/css/check.css" />
 
 
+
 <script src="${R}res/js/jquery.js" type="text/javascript"></script>
 <script src="${R}res/js/bootstrap.min.js" type="text/javascript"></script>
+
 
 <title>후원회</title>
